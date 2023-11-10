@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Fetch Take Home
-//
-//  Created by Adriano Ramos on 11/10/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {

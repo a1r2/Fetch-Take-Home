@@ -1,0 +1,20 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// This goes into the info.pfile
+//<key>HOST_KEY</key>
+//<string>${HOST_KEY}</string>
+
+// and then you have to go to project, configurations and add the .xcconfig files accordingly
+
+// This could be dev.themealdb.com
+HOST_KEY = themealdb.com
+
+
+// We can change other stuff here
+//PRODUCT_DISPLAY_NAME = Didi (DEV)
+//PRODUCT_BUNDLE_IDENTIFIER =
+//PRODUCT_APP_ICON = AppIcon.dev
+
+// Refer to
+//https://www.appcoda.com/xcconfig-guide/
