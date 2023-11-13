@@ -34,6 +34,12 @@ struct Meal: Decodable, Hashable, Identifiable {
         strMealThumb = try container.decodeIfPresent(String.self, forKey: .strMealThumb) ?? "Unknown Thumb"
         idMeal = try container.decodeIfPresent(String.self, forKey: .idMeal) ?? "Unknown ID"
     }
+    
+    // Standard initializer for direct creation or mock data
+    init(strMeal: String, strMealThumb: String, idMeal: String) {
+        self.strMeal = strMeal
+        self.strMealThumb = strMealThumb
+        self.idMeal = idMeal
+    }
 
 }
-

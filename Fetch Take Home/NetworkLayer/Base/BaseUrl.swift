@@ -7,36 +7,35 @@ enum BaseUrl {
     /// The key in the Info.plist file corresponding to the base URL.
     var plistKey: String? {
         switch self {
-        case .service: 
+        case .service:
             return "HOST_KEY"
         }
     }
     
     /// The value retrieved from the Info.plist file using the plistKey.
-    var plistValue: String {
-        guard let plistKey = plistKey else { return "" }
-        guard let endpoint = Bundle.getFromPlist(key: plistKey) else {
-            fatalError(MyApiError.urlNotInPlist(plistKey).localizedDescription)
+    var plistValue: String? {
+        guard let plistKey = plistKey,
+              let endpoint = Bundle.main.object(forInfoDictionaryKey: plistKey) as? String else {
+            return nil
         }
-        
-        switch self {
-        case .service:
-            return endpoint
-        }
+        return endpoint
     }
     
     /// The host for the API request.
     var host: String {
         switch self {
-        default: 
-            return self.plistValue.isEmpty ? "Host is missing!" : self.plistValue
+        case .service:
+            guard let host = self.plistValue else {
+                return "Host is missing!"
+            }
+            return host
         }
     }
     
     /// The URLComponents for the API request.
     var components: URLComponents {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
+        urlComponents.scheme = "https" // Consider making this configurable if needed
         urlComponents.host = self.host
         return urlComponents
     }

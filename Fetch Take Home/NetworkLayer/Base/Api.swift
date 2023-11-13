@@ -6,19 +6,10 @@ import Foundation
 protocol Api {
     /// Headers specific to the current API request.
     var headers: [String: String] { get }
-
-    /// Headers that are shared across all API requests.
-    var sharedHeaders: [String: String] { get }
-        
+    
     /// URL components for the API request.
     var components: URLComponents { get }
     
-    /// Full URL for the API request.
-    var fullUrl: URL { get }
-    
-    /// URLRequest for the API request.
-    var urlRequest: URLRequest { get }
-        
     /// HTTP method for the API request.
     var method: HttpMethod { get }
     
@@ -34,49 +25,51 @@ protocol Api {
     /// Body data for the API request.
     var body: Data? { get }
     
-    /// Api methods
+    /// Performs the API request and returns the data and status code.
     func request(print: Bool) async throws -> (Data, StatusCode)
+    
+    /// Requests data and decodes it into the specified Decodable type.
     func requestData<T: Decodable>(_ responseType: T.Type, print: Bool) async throws -> T
-    func decodeResponse<T: Decodable>(_ responseType: T.Type, data: Data, statusCode: Int) throws -> T
+    
+    /// Decodes the response data into the specified Decodable type.
+    func decodeResponse<T: Decodable>(_ responseType: T.Type, data: Data) throws -> T
 }
 
+// MARK: - Extension for Shared Functionality
+
 extension Api {
+    /// Shared headers that are common across all API requests.
     var sharedHeaders: [String: String] {
-        var headerFields = ["User-Agent": "iPhone"]
-        headerFields["Authorization"] = "Token"
-        
-        switch self.method {
-        case .POST, .PUT:
-            headerFields["Content-Type"] = "application/json"
-            return headerFields
-        default: return headerFields
-        }
+        ["User-Agent": "iPhone", "Authorization": "Token"]
     }
     
+    /// Combines shared headers with headers specific to the API request.
     var headers: [String: String] {
-        return self.sharedHeaders
+        var allHeaders = sharedHeaders
+        if method == .POST || method == .PUT {
+            allHeaders["Content-Type"] = "application/json"
+        }
+        return allHeaders
     }
     
+    /// Constructs the full URL components for the API request.
     var components: URLComponents {
-        var urlComponents = self.baseUrl.components
-        urlComponents.path = self.path
-        urlComponents.queryItems = self.queryItems
+        var urlComponents = baseUrl.components
+        urlComponents.path = path
+        urlComponents.queryItems = queryItems
         return urlComponents
     }
     
-    var fullUrl: URL {
-        guard let url = self.components.url else {
-            fatalError(MyApiError.invalidUrl(nil).localizedDescription)
-        }
-        return url
-    }
-    
+    /// Constructs the URLRequest for the API request.
     var urlRequest: URLRequest {
-        var request = URLRequest(url: self.fullUrl)
-        request.httpMethod = self.method.rawValue
-        request.allHTTPHeaderFields = self.headers
-        request.httpBody = self.body
-        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData
+        guard let url = components.url else {
+            fatalError(NetworkError.invalidUrl(nil).localizedDescription)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        request.allHTTPHeaderFields = headers
+        request.httpBody = body
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         return request
     }
     
@@ -85,30 +78,45 @@ extension Api {
     func request(print: Bool) async throws -> (Data, StatusCode) {
         do {
             let (data, response) = try await URLSession.shared.data(for: self.urlRequest)
-            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
-            let httpStatus = HttpStatus(rawValue: statusCode) ?? .noData
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw NetworkError.invalidResponse
+            }
+            
+            let statusCode = httpResponse.statusCode
+            
+            // Using HttpStatus to handle status codes
+            if let httpStatus = HttpStatus(rawValue: statusCode), !httpStatus.isSuccessful {
+                throw NetworkError.httpError(httpStatus)
+            }
+            
+            // Logging, if required
             if print {
                 Factory.log(request: urlRequest, data: data, response: response)
             }
-            guard httpStatus.isSuccessful else {
-                throw httpStatus.error
-            }
+            
+            // Success case
             return (data, statusCode)
-        } catch let error {
-            throw error is MyError ? error : HttpError.requestFailure(error)
+            
+        } catch let error as NetworkError {
+            // NetworkError is thrown directly
+            throw error
+        } catch {
+            // Other errors are wrapped in NetworkError.requestFailure
+            throw NetworkError.requestFailure(error)
         }
     }
     
     func requestData<T: Decodable>(_ responseType: T.Type, print: Bool) async throws -> T {
-        let (data, statusCode) = try await request(print: print)
-        return try decodeResponse(responseType, data: data, statusCode: statusCode)
+        let (data, _) = try await request(print: print)
+        return try decodeResponse(responseType, data: data)
     }
     
-    func decodeResponse<T: Decodable>(_ responseType: T.Type, data: Data, statusCode: Int) throws -> T {
+    func decodeResponse<T: Decodable>(_ responseType: T.Type, data: Data) throws -> T {
         do {
             return try JSONDecoder().decode(responseType, from: data)
         } catch let error {
-            throw MyApiError.decodeFailed(error)
+            throw NetworkError.decodeFailed(error)
         }
     }
     
