@@ -61,7 +61,6 @@ struct RecipeDetailView: View {
         .onAppear {
             viewModel.fetch()
         }
-        .errorAlert(errorMessage: $viewModel.errorMessage)
     }
 
     @ViewBuilder

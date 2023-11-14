@@ -8,35 +8,37 @@
 import Foundation
 
 struct MealsResponse: Decodable {
-    var meals: [FollowThisRecipe]
+    let meals: [FollowThisRecipe]
 }
 
-struct FollowThisRecipe: Decodable {
-    var strArea: String?
-    var strTags: String?
-    var strMealThumb: String?
-    var strCreativeCommonsConfirmed: String?
-    var strMeal: String?
-    var strImageSource: String?
-    var strSource: String?
-    var strInstructions: String?
-    var idMeal: String?
-    var dateModified: String?
-    var strYoutube: String?
-    var strCategory: String?
-    var strDrinkAlternate: String?
-    var ingredients: [String: String] = [:]
-    
+struct FollowThisRecipe: Decodable, Hashable {
+    let strArea: String?
+    let strTags: String?
+    let strMealThumb: String?
+    let strCreativeCommonsConfirmed: String?
+    let strMeal: String?
+    let strImageSource: String?
+    let strSource: String?
+    let strInstructions: String?
+    let idMeal: String?
+    let dateModified: String?
+    let strYoutube: String?
+    let strCategory: String?
+    let strDrinkAlternate: String?
+    let ingredients: [String: String]
+}
+
+extension FollowThisRecipe {
     private struct DynamicCodingKeys: CodingKey {
         var stringValue: String
         var intValue: Int?
-
-        init?(stringValue: String) {
+        
+        init(stringValue: String) {
             self.stringValue = stringValue
             self.intValue = nil
         }
-
-        init?(intValue: Int) {
+        
+        init(intValue: Int) {
             self.stringValue = "\(intValue)"
             self.intValue = intValue
         }
@@ -47,74 +49,36 @@ struct FollowThisRecipe: Decodable {
         
         // Decode known keys
         // Safely unwrap the key
-        if let key = DynamicCodingKeys(stringValue: "strArea") {
-            strArea = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strTags") {
-            strTags = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strMealThumb") {
-            strMealThumb = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strCreativeCommonsConfirmed") {
-            strCreativeCommonsConfirmed = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strMeal") {
-            strMeal = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strImageSource") {
-            strImageSource = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strSource") {
-            strSource = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strInstructions") {
-            strInstructions = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "idMeal") {
-            idMeal = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "dateModified") {
-            dateModified = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strYoutube") {
-            strYoutube = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strCategory") {
-            strCategory = try container.decodeIfPresent(String.self, forKey: key)
-        }
-        if let key = DynamicCodingKeys(stringValue: "strDrinkAlternate") {
-            strDrinkAlternate = try container.decodeIfPresent(String.self, forKey: key)
-        }
+        strArea = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strArea"))
+        strTags = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strTags"))
+        strMealThumb = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strMealThumb"))
+        strCreativeCommonsConfirmed = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strCreativeCommonsConfirmed"))
+        strMeal = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strMeal"))
+        strImageSource = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strImageSource"))
+        strSource = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strSource"))
+        strInstructions = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strInstructions"))
+        idMeal = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "idMeal"))
+        dateModified = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "dateModified"))
+        strYoutube = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strYoutube"))
+        strCategory = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strCategory"))
+        strDrinkAlternate = try container.decodeIfPresent(String.self, forKey: DynamicCodingKeys(stringValue: "strDrinkAlternate"))
         
         // Handle dynamic keys for ingredients and measurements
+        var dicIngredients: [String: String] = [:]
         for i in 1...30 { // Adjust range as needed
-            if let ingredientKey = DynamicCodingKeys(stringValue: "strIngredient\(i)"),
-               let measureKey = DynamicCodingKeys(stringValue: "strMeasure\(i)") {
-                if let ingredient = try container.decodeIfPresent(String.self, forKey: ingredientKey),
-                   !ingredient.isEmpty {
-                    let measure = try container.decodeIfPresent(String.self, forKey: measureKey) ?? ""
-                    ingredients[ingredient] = measure
-                }
+            let ingredientKey = DynamicCodingKeys(stringValue: "strIngredient\(i)")
+            let measureKey = DynamicCodingKeys(stringValue: "strMeasure\(i)")
+            
+            guard let ingredient = try container.decodeIfPresent(String.self, forKey: ingredientKey),
+                  !ingredient.isEmpty
+            else {
+                break
             }
+            
+            let measure = try container.decodeIfPresent(String.self, forKey: measureKey) ?? ""
+            dicIngredients[ingredient] = measure
         }
+        
+        ingredients = dicIngredients
     }
-    
-    // Standard initializer
-     init(strArea: String?, strTags: String?, strMealThumb: String?, strCreativeCommonsConfirmed: String?, strMeal: String?, strImageSource: String?, strSource: String?, strInstructions: String?, idMeal: String?, dateModified: String?, strYoutube: String?, strCategory: String?, strDrinkAlternate: String?, ingredients: [String: String]) {
-         self.strArea = strArea
-         self.strTags = strTags
-         self.strMealThumb = strMealThumb
-         self.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed
-         self.strMeal = strMeal
-         self.strImageSource = strImageSource
-         self.strSource = strSource
-         self.strInstructions = strInstructions
-         self.idMeal = idMeal
-         self.dateModified = dateModified
-         self.strYoutube = strYoutube
-         self.strCategory = strCategory
-         self.strDrinkAlternate = strDrinkAlternate
-         self.ingredients = ingredients
-     }
 }

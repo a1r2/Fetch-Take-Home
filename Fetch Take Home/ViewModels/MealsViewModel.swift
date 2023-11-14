@@ -9,9 +9,9 @@ import SwiftUI
 
 @MainActor
 class MealsViewModel: ObservableObject {
-    @Published var meals: [Meal] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published private(set) var meals: [Meal] = []
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var errorMessage: String?
     private var services: MealServiceProtocol
     
     init(services: MealServiceProtocol = Services()) {
@@ -19,18 +19,19 @@ class MealsViewModel: ObservableObject {
     }
     
     func fetch() {
+        guard !isLoading else { return }
         isLoading = true
+        errorMessage = nil
         Task {
             do {
                 let mealsData = try await services.categories(category: "Dessert")
                 meals = mealsData.meals.sorted {
                     $0.strMeal.lowercased() < $1.strMeal.lowercased()
                 }
-                isLoading = false
             } catch {
-                isLoading = false
                 errorMessage = error.localizedDescription
             }
+            isLoading = false
         }
     }
 }

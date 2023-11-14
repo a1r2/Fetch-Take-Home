@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DessertListView: View {
-    @StateObject var viewModel: MealsViewModel
+    @ObservedObject var viewModel: MealsViewModel
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     @State private var searchText = ""
@@ -18,11 +18,10 @@ struct DessertListView: View {
             ScrollView {
                 ForEach(viewModel.meals.filter {
                     searchText.isEmpty || $0.strMeal.localizedCaseInsensitiveContains(searchText.lowercased())
-                }) { meal in
+                }, id: \.self) { meal in
                     NavigationLink(destination: RecipeDetailView(viewModel: MealsDetailViewModel(meal: meal), youtubeHelper: YoutubeHelper())
                     ) {
                         DessertItemView(meal: meal)
-                            .errorAlert(errorMessage: $viewModel.errorMessage)
                     }
                     .simultaneousGesture(TapGesture().onEnded {
                         feedbackGenerator.impactOccurred()
@@ -32,15 +31,11 @@ struct DessertListView: View {
             .navigationTitle("Take Home")
             .searchable(text: $searchText)
             .onAppear {
-                if viewModel.meals.isEmpty && !viewModel.isLoading {
-                    viewModel.fetch()
-                }
-            }
-            .refreshable {
-                viewModel.meals = []
                 viewModel.fetch()
             }
-            .errorAlert(errorMessage: $viewModel.errorMessage)
+            .refreshable {
+                viewModel.fetch()
+            }
         }
     }
 }

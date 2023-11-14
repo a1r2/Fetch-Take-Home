@@ -9,10 +9,10 @@ import SwiftUI
 
 @MainActor
 class MealsDetailViewModel: ObservableObject {
-    @Published var meal: Meal
-    @Published var isLoading: Bool = false
-    @Published var recipe: MealsResponse?
-    @Published var errorMessage: String?
+    @Published private(set) var meal: Meal
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var recipe: MealsResponse?
+    @Published private(set) var errorMessage: String?
     private var services: MealServiceProtocol
     
     init(meal: Meal, services: MealServiceProtocol = Services()) {
@@ -21,16 +21,17 @@ class MealsDetailViewModel: ObservableObject {
     }
     
     func fetch() {
+        guard !isLoading else { return }
         isLoading = true
+        errorMessage = nil
         Task {
             do {
-                let recipeData = try await services.lookup(id: meal.id)
+                let recipeData = try await services.lookup(id: meal.idMeal)
                 recipe = recipeData
-                isLoading = false
             } catch {
-                isLoading = false
                 errorMessage = error.localizedDescription
             }
+            isLoading = false
         }
     }
 }
