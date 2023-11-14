@@ -11,12 +11,13 @@ struct CircularImageView: View {
     var image: Image
 
     var body: some View {
-        image
-            .resizable()
-            .scaledToFit()
-            .clipShape(Circle())
-            .overlay(Circle().stroke(Color.white, lineWidth: 4))
-            .shadow(radius: 10)
+            image
+                .resizable()
+                .scaledToFit()
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                .shadow(radius: 10)
+                .frame(maxWidth: .infinity)
     }
 }
 

@@ -40,7 +40,6 @@
 		81E675542AFECF3D00995DEB /* YouTubeVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E675532AFECF3D00995DEB /* YouTubeVideoView.swift */; };
 		81E675562AFFDAB400995DEB /* YoutubeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E675552AFFDAB400995DEB /* YoutubeHelper.swift */; };
 		81E675582AFFE60F00995DEB /* PositionInCircleOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E675572AFFE60F00995DEB /* PositionInCircleOverlay.swift */; };
-		81E6755A2AFFFF6C00995DEB /* ErrorAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E675592AFFFF6C00995DEB /* ErrorAlertModifier.swift */; };
 		81E6755D2AFFFFE800995DEB /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E6755C2AFFFFE800995DEB /* View.swift */; };
 		81ED8EB22B01CE9D006927FA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ED8EB12B01CE9D006927FA /* String.swift */; };
 /* End PBXBuildFile section */
@@ -100,7 +99,6 @@
 		81E675532AFECF3D00995DEB /* YouTubeVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVideoView.swift; sourceTree = "<group>"; };
 		81E675552AFFDAB400995DEB /* YoutubeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeHelper.swift; sourceTree = "<group>"; };
 		81E675572AFFE60F00995DEB /* PositionInCircleOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionInCircleOverlay.swift; sourceTree = "<group>"; };
-		81E675592AFFFF6C00995DEB /* ErrorAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertModifier.swift; sourceTree = "<group>"; };
 		81E6755C2AFFFFE800995DEB /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		81ED8EB12B01CE9D006927FA /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -258,7 +256,6 @@
 				81E674FC2AFE6C8500995DEB /* Factory.swift */,
 				81E675552AFFDAB400995DEB /* YoutubeHelper.swift */,
 				81E675572AFFE60F00995DEB /* PositionInCircleOverlay.swift */,
-				81E675592AFFFF6C00995DEB /* ErrorAlertModifier.swift */,
 				812B335C2B00588C008E75FA /* CustomProgressView.swift */,
 			);
 			path = Helpers;
@@ -450,7 +447,6 @@
 				81E675582AFFE60F00995DEB /* PositionInCircleOverlay.swift in Sources */,
 				81E674EE2AFE6C6600995DEB /* BaseUrl.swift in Sources */,
 				81E675462AFE876E00995DEB /* DessertItemView.swift in Sources */,
-				81E6755A2AFFFF6C00995DEB /* ErrorAlertModifier.swift in Sources */,
 				81E675502AFECC6500995DEB /* CircularImageView.swift in Sources */,
 				81E675052AFE6FBC00995DEB /* Meals.swift in Sources */,
 				81E675562AFFDAB400995DEB /* YoutubeHelper.swift in Sources */,
@@ -627,10 +623,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fetch Take Home/Preview Content\"";
-				DEVELOPMENT_TEAM = BLD3KB3WC3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Fetch-Take-Home-Info.plist";
@@ -661,10 +657,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Fetch Take Home/Preview Content\"";
-				DEVELOPMENT_TEAM = BLD3KB3WC3;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Fetch-Take-Home-Info.plist";

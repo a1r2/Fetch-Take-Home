@@ -8,10 +8,6 @@
 import SwiftUI
 
 extension View {
-    func errorAlert(errorMessage: Binding<String?>) -> some View {
-        self.modifier(ErrorAlertModifier(errorMessage: errorMessage))
-    }
-    
     func positionInCircleOverlay() -> some View {
         self.modifier(PositionInCircleOverlay())
     }

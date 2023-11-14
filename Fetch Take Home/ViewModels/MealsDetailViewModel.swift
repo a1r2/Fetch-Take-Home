@@ -13,11 +13,10 @@ class MealsDetailViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var recipe: MealsResponse?
     @Published private(set) var errorMessage: String?
-    private var services: MealServiceProtocol
+    private var services: MealServiceProtocol = Services()
     
-    init(meal: Meal, services: MealServiceProtocol = Services()) {
+    init(meal: Meal) {
         self.meal = meal
-        self.services = services
     }
     
     func fetch() {

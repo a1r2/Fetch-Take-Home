@@ -12,11 +12,7 @@ class MealsViewModel: ObservableObject {
     @Published private(set) var meals: [Meal] = []
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var errorMessage: String?
-    private var services: MealServiceProtocol
-    
-    init(services: MealServiceProtocol = Services()) {
-        self.services = services
-    }
+    private var services: MealServiceProtocol = Services()
     
     func fetch() {
         guard !isLoading else { return }

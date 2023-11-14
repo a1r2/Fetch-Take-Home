@@ -65,17 +65,16 @@ extension FollowThisRecipe {
         
         // Handle dynamic keys for ingredients and measurements
         var dicIngredients: [String: String] = [:]
+        
         for i in 1...30 { // Adjust range as needed
             let ingredientKey = DynamicCodingKeys(stringValue: "strIngredient\(i)")
+            guard let ingredient = try container.decodeIfPresent(String.self, forKey: ingredientKey), !ingredient.isEmpty
+            else { break }
+            
             let measureKey = DynamicCodingKeys(stringValue: "strMeasure\(i)")
+            guard let measure = try container.decodeIfPresent(String.self, forKey: measureKey),!measure.isEmpty
+            else { break }
             
-            guard let ingredient = try container.decodeIfPresent(String.self, forKey: ingredientKey),
-                  !ingredient.isEmpty
-            else {
-                break
-            }
-            
-            let measure = try container.decodeIfPresent(String.self, forKey: measureKey) ?? ""
             dicIngredients[ingredient] = measure
         }
         

@@ -14,47 +14,57 @@ struct RecipeDetailView: View {
 
     var body: some View {
         ScrollView {
-            if let followThisRecipe = viewModel.recipe?.meals.first {
-                VStack(alignment: .leading, spacing: 10) {
-                    recipeImageView
-
-                    Text(followThisRecipe.strMeal.orEmpty)
-                        .font(.title)
-                        .padding(.top)
-
-                    Text("Category: \(followThisRecipe.strCategory.orEmpty)")
-                    Text("Area: \(followThisRecipe.strArea.orEmpty)")
-
-                    if let source = followThisRecipe.strSource, let url = URL(string: source) {
-                        Link("Recipe Source", destination: url)
-                    }
-
-                    Text("Ingredients")
+            if viewModel.isLoading {
+                ProgressView {
+                    Text("fetching")
                         .font(.title2)
-                        .padding(.top)
-
-                    if !followThisRecipe.ingredients.isEmpty {
-                        ForEach(Array(followThisRecipe.ingredients.sorted(by: <).enumerated()), id: \.element.key) { index, pair in
-                            HStack {
-                                Text(pair.key.capitalizeFirstLetter())
-                                Spacer()
-                                Text(pair.value)
-                            }
-                            .background(index % 2 == 0 ? Color.gray.opacity(0.2) : Color.clear)
-                        }
-                    } else {
-                        Text("No ingredients available")
-                    }
-
-                    Text("Instructions")
-                        .font(.title2)
-                        .padding(.top)
-
-                    Text(followThisRecipe.strInstructions ?? "")
-                        .padding(.bottom)
-
                 }
-                .padding()
+            } else if let errorMessage = viewModel.errorMessage {
+                ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
+            } else {
+                if let followThisRecipe = viewModel.recipe?.meals.first {
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        recipeImageView
+
+                        Text(followThisRecipe.strMeal.orEmpty)
+                            .font(.title)
+                            .padding(.top)
+
+                        Text("Category: \(followThisRecipe.strCategory.orEmpty)")
+                        Text("Area: \(followThisRecipe.strArea.orEmpty)")
+
+                        if let source = followThisRecipe.strSource, let url = URL(string: source) {
+                            Link("Recipe Source", destination: url)
+                        }
+
+                        Text("Ingredients")
+                            .font(.title2)
+                            .padding(.top)
+
+                        if !followThisRecipe.ingredients.isEmpty {
+                            ForEach(Array(followThisRecipe.ingredients.sorted(by: <).enumerated()), id: \.element.key) { index, pair in
+                                HStack {
+                                    Text(pair.key.capitalizeFirstLetter())
+                                    Spacer()
+                                    Text(pair.value)
+                                }
+                                .background(index % 2 == 0 ? Color.gray.opacity(0.2) : Color.clear)
+                            }
+                        } else {
+                            Text("No ingredients available")
+                        }
+
+                        Text("Instructions")
+                            .font(.title2)
+                            .padding(.top)
+
+                        Text(followThisRecipe.strInstructions ?? "")
+                            .padding(.bottom)
+
+                    }
+                    .padding()
+                }
             }
         }
         .navigationTitle("Recipe Details")
@@ -70,7 +80,7 @@ struct RecipeDetailView: View {
                 imagePhaseView(phase)
             }
         } else {
-            CircularImageView(image: Image("DD")) // Default Image
+            CircularImageView(image: Image("DD"))
         }
     }
 
@@ -111,7 +121,7 @@ struct RecipeDetailView: View {
                     .background(Circle().fill(Color.white))
             }
             .shadow(radius: 5)
-            .padding(16)
+            .padding(.bottom, 20)
             .positionInCircleOverlay()
         }
     }
@@ -156,4 +166,3 @@ struct RecipeDetailView_Previews: PreviewProvider {
         RecipeDetailView(viewModel: MealsDetailViewModel(meal: mockMeal), youtubeHelper: YoutubeHelper())
     }
 }
-
