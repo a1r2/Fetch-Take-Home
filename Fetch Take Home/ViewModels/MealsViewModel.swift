@@ -10,13 +10,12 @@ import SwiftUI
 @MainActor
 class MealsViewModel: ObservableObject {
     @Published private(set) var meals: [Meal] = []
-    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var state: FetchDataState = .Loaded
     @Published private(set) var errorMessage: String?
     private var services: MealServiceProtocol = Services()
     
     func fetch() {
-        guard !isLoading else { return }
-        isLoading = true
+        state = .Loading
         errorMessage = nil
         Task {
             do {
@@ -24,10 +23,11 @@ class MealsViewModel: ObservableObject {
                 meals = mealsData.meals.sorted {
                     $0.strMeal.lowercased() < $1.strMeal.lowercased()
                 }
+                state = .Loaded
             } catch {
                 errorMessage = error.localizedDescription
+                state = .Error
             }
-            isLoading = false
         }
     }
 }

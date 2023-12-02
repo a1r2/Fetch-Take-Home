@@ -16,12 +16,15 @@ struct DessertListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if viewModel.isLoading {
+                switch viewModel.state {
+                case .Loading:
                     Text("One sec!")
                         .font(.footnote)
-                } else if let errorMessage = viewModel.errorMessage {
-                    ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
-                } else {
+                case .Error:
+                    if let errorMessage = viewModel.errorMessage {
+                        ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
+                    }
+                case .Loaded:
                     ForEach(viewModel.meals.filter {
                         searchText.isEmpty || $0.strMeal.localizedCaseInsensitiveContains(searchText.lowercased())
                     }, id: \.self) { meal in

@@ -14,14 +14,17 @@ struct RecipeDetailView: View {
 
     var body: some View {
         ScrollView {
-            if viewModel.isLoading {
+            switch viewModel.state {
+            case .Loading:
                 ProgressView {
                     Text("fetching")
                         .font(.title2)
                 }
-            } else if let errorMessage = viewModel.errorMessage {
-                ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
-            } else {
+            case .Error:
+                if let errorMessage = viewModel.errorMessage {
+                    ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
+                }
+            case .Loaded:
                 if let followThisRecipe = viewModel.recipe?.meals.first {
                     VStack(alignment: .leading, spacing: 10) {
                         
