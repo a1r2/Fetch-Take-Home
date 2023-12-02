@@ -25,16 +25,19 @@ struct DessertListView: View {
                         ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
                     }
                 case .Loaded:
-                    ForEach(viewModel.meals.filter {
-                        searchText.isEmpty || $0.strMeal.localizedCaseInsensitiveContains(searchText.lowercased())
+                    ForEach(viewModel.meals.filter { meal in
+                        searchText.isEmpty || meal.strMeal.localizedCaseInsensitiveContains(searchText.lowercased())
                     }, id: \.self) { meal in
-                        NavigationLink(destination: RecipeDetailView(viewModel: MealsDetailViewModel(meal: meal), youtubeHelper: YoutubeHelper())
+                        NavigationLink(
+                            destination: RecipeDetailView(viewModel: MealsDetailViewModel(meal: meal), youtubeHelper: YoutubeHelper())
                         ) {
                             DessertItemView(meal: meal)
                         }
-                        .simultaneousGesture(TapGesture().onEnded {
-                            feedbackGenerator.impactOccurred()
-                        })
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                feedbackGenerator.impactOccurred()
+                            }
+                        )
                     }
                 }
             }
