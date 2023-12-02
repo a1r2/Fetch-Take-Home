@@ -12,24 +12,24 @@ struct DessertItemView: View {
     
     var body: some View {
         AsyncImage(url: URL(string: meal.strMealThumb)) { phase in
-                switch phase {
-                case .empty:
-                    CustomProgressView()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .overlay(
-                            TextOverlayView(mealName: meal.strMeal),
-                            alignment: .topTrailing
-                        )
-                        .cornerRadius(20)
-                case .failure:
-                    fallbackImage
-                @unknown default:
-                    EmptyView()
-                }
+            switch phase {
+            case .empty:
+                CustomProgressView()
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .overlay(
+                        TextOverlayView(mealName: meal.strMeal),
+                        alignment: .topTrailing
+                    )
+                    .cornerRadius(20)
+            case .failure:
+                fallbackImage
+            @unknown default:
+                EmptyView()
             }
+        }
         .padding()
     }
     
@@ -38,10 +38,10 @@ struct DessertItemView: View {
             .resizable()
             .scaledToFit()
     }
-
+    
     private struct TextOverlayView: View {
         var mealName: String
-
+        
         var body: some View {
             Text(mealName)
                 .font(.system(.headline, design: .default))

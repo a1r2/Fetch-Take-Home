@@ -11,7 +11,7 @@ struct RecipeDetailView: View {
     @StateObject var viewModel: MealsDetailViewModel
     @StateObject var youtubeHelper: YoutubeHelper
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-
+    
     var body: some View {
         ScrollView {
             switch viewModel.state {
@@ -29,22 +29,22 @@ struct RecipeDetailView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         
                         recipeImageView
-
+                        
                         Text(followThisRecipe.strMeal.orEmpty)
                             .font(.title)
                             .padding(.top)
-
+                        
                         Text("Category: \(followThisRecipe.strCategory.orEmpty)")
                         Text("Area: \(followThisRecipe.strArea.orEmpty)")
-
+                        
                         if let source = followThisRecipe.strSource, let url = URL(string: source) {
                             Link("Recipe Source", destination: url)
                         }
-
+                        
                         Text("Ingredients")
                             .font(.title2)
                             .padding(.top)
-
+                        
                         if !followThisRecipe.ingredients.isEmpty {
                             ForEach(Array(followThisRecipe.ingredients.sorted(by: <).enumerated()), id: \.element.key) { index, pair in
                                 HStack {
@@ -57,14 +57,14 @@ struct RecipeDetailView: View {
                         } else {
                             Text("No ingredients available")
                         }
-
+                        
                         Text("Instructions")
                             .font(.title2)
                             .padding(.top)
-
+                        
                         Text(followThisRecipe.strInstructions ?? "")
                             .padding(.bottom)
-
+                        
                     }
                     .padding()
                 }
@@ -75,7 +75,7 @@ struct RecipeDetailView: View {
             viewModel.fetch()
         }
     }
-
+    
     @ViewBuilder
     private var recipeImageView: some View {
         if let imageUrl = viewModel.recipe?.meals[0].strMealThumb.flatMap(URL.init) {
@@ -86,7 +86,7 @@ struct RecipeDetailView: View {
             CircularImageView(image: Image("DD"))
         }
     }
-
+    
     @ViewBuilder
     private func imagePhaseView(_ phase: AsyncImagePhase) -> some View {
         switch phase {
@@ -104,7 +104,7 @@ struct RecipeDetailView: View {
             EmptyView()
         }
     }
-
+    
     @ViewBuilder
     private var youtubePlayButtonOverlay: some View {
         if let youtubeID = viewModel.recipe?.meals[0].strYoutube, !youtubeID.isEmpty {
@@ -128,7 +128,7 @@ struct RecipeDetailView: View {
             .positionInCircleOverlay()
         }
     }
-
+    
     @ViewBuilder
     private var YouTubeSheetView: some View {
         if !youtubeHelper.youtubeRef.isEmpty {

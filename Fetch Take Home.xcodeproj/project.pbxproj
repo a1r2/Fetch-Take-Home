@@ -11,6 +11,7 @@
 		812B335F2B005D90008E75FA /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812B335E2B005D90008E75FA /* NetworkError.swift */; };
 		812B33612B005E4A008E75FA /* DownloadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812B33602B005E4A008E75FA /* DownloadError.swift */; };
 		812BB00F2B1B926B00A8B068 /* FetchDataState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812BB00E2B1B926B00A8B068 /* FetchDataState.swift */; };
+		812BB0112B1BB8D900A8B068 /* MealsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812BB0102B1BB8D900A8B068 /* MealsViewModelTests.swift */; };
 		81E674B12AFE6BFA00995DEB /* Fetch_Take_HomeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E674B02AFE6BFA00995DEB /* Fetch_Take_HomeApp.swift */; };
 		81E674B32AFE6BFA00995DEB /* DessertListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E674B22AFE6BFA00995DEB /* DessertListView.swift */; };
 		81E674B52AFE6BFC00995DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81E674B42AFE6BFC00995DEB /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		812B335E2B005D90008E75FA /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		812B33602B005E4A008E75FA /* DownloadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadError.swift; sourceTree = "<group>"; };
 		812BB00E2B1B926B00A8B068 /* FetchDataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDataState.swift; sourceTree = "<group>"; };
+		812BB0102B1BB8D900A8B068 /* MealsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsViewModelTests.swift; sourceTree = "<group>"; };
 		81E674AD2AFE6BFA00995DEB /* Fetch Take Home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fetch Take Home.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81E674B02AFE6BFA00995DEB /* Fetch_Take_HomeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch_Take_HomeApp.swift; sourceTree = "<group>"; };
 		81E674B22AFE6BFA00995DEB /* DessertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				81E674C12AFE6BFC00995DEB /* Fetch_Take_HomeTests.swift */,
+				812BB0102B1BB8D900A8B068 /* MealsViewModelTests.swift */,
 			);
 			path = "Fetch Take HomeTests";
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81E674C22AFE6BFC00995DEB /* Fetch_Take_HomeTests.swift in Sources */,
+				812BB0112B1BB8D900A8B068 /* MealsViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

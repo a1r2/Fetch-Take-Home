@@ -12,7 +12,7 @@ class MealsViewModel: ObservableObject {
     @Published private(set) var meals: [Meal] = []
     @Published private(set) var state: FetchDataState = .Loaded
     @Published private(set) var errorMessage: String?
-    private var services: MealServiceProtocol = Services()
+    internal var services: MealServiceProtocol = Services()
     
     func fetch() {
         state = .Loading
