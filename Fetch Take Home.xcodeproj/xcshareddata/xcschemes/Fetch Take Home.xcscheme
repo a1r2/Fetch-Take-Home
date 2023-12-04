@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "81E674BC2AFE6BFC00995DEB"
+               BlueprintIdentifier = "812918BD2B1CC17C00FA84E3"
                BuildableName = "Fetch Take HomeTests.xctest"
                BlueprintName = "Fetch Take HomeTests"
                ReferencedContainer = "container:Fetch Take Home.xcodeproj">
@@ -45,7 +45,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "81E674C62AFE6BFC00995DEB"
+               BlueprintIdentifier = "812918CC2B1CC69200FA84E3"
                BuildableName = "Fetch Take HomeUITests.xctest"
                BlueprintName = "Fetch Take HomeUITests"
                ReferencedContainer = "container:Fetch Take Home.xcodeproj">

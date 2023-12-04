@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct RecipeDetailView: View {
-    @StateObject var viewModel: MealsDetailViewModel
+    @StateObject var viewModel: MealDetailViewModel
     @StateObject var youtubeHelper: YoutubeHelper
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     var body: some View {
         ScrollView {
             switch viewModel.state {
-            case .Loading:
+            case .loading:
                 ProgressView {
                     Text("fetching")
                         .font(.title2)
                 }
-            case .Error:
+            case .error:
                 if let errorMessage = viewModel.errorMessage {
                     ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
                 }
-            case .Loaded:
+            case .idle:
                 if let followThisRecipe = viewModel.recipe?.meals.first {
                     VStack(alignment: .leading, spacing: 10) {
                         
@@ -72,7 +72,9 @@ struct RecipeDetailView: View {
         }
         .navigationTitle("Recipe Details")
         .onAppear {
-            viewModel.fetch()
+            Task {
+                await viewModel.fetch()
+            }
         }
     }
     
@@ -166,6 +168,6 @@ struct RecipeDetailView_Previews: PreviewProvider {
             strMeal: "White chocolate creme brulee",
             strMealThumb: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg",
             idMeal: "52917")
-        RecipeDetailView(viewModel: MealsDetailViewModel(meal: mockMeal), youtubeHelper: YoutubeHelper())
+        RecipeDetailView(viewModel: MealDetailViewModel(meal: mockMeal), youtubeHelper: YoutubeHelper())
     }
 }

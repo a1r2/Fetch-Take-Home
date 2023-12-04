@@ -17,19 +17,19 @@ struct DessertListView: View {
         NavigationStack {
             ScrollView {
                 switch viewModel.state {
-                case .Loading:
+                case .loading:
                     Text("One sec!")
                         .font(.footnote)
-                case .Error:
+                case .error:
                     if let errorMessage = viewModel.errorMessage {
                         ContentUnavailableView(errorMessage, systemImage: "exclamationmark.triangle")
                     }
-                case .Loaded:
+                case .idle:
                     ForEach(viewModel.meals.filter { meal in
                         searchText.isEmpty || meal.strMeal.localizedCaseInsensitiveContains(searchText.lowercased())
                     }, id: \.self) { meal in
                         NavigationLink(
-                            destination: RecipeDetailView(viewModel: MealsDetailViewModel(meal: meal), youtubeHelper: YoutubeHelper())
+                            destination: RecipeDetailView(viewModel: MealDetailViewModel(meal: meal), youtubeHelper: YoutubeHelper())
                         ) {
                             DessertItemView(meal: meal)
                         }
@@ -45,10 +45,14 @@ struct DessertListView: View {
             .searchable(text: $searchText)
         }
         .onAppear {
-            viewModel.fetch()
+            Task {
+                await viewModel.fetch()
+            }
         }
         .refreshable {
-            viewModel.fetch()
+            Task {
+                await viewModel.fetch()
+            }
         }
     }
 }
