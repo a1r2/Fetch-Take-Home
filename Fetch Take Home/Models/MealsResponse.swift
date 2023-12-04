@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MealsResponse: Decodable {
+struct MealsResponse: Decodable, Equatable {
     let meals: [FollowThisRecipe]
 }
 

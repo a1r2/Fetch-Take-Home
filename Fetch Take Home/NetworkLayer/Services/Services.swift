@@ -14,4 +14,4 @@ extension MealServiceProtocol {
     }
 }
 
-class Services: MealServiceProtocol { }
+class Service: MealServiceProtocol { }

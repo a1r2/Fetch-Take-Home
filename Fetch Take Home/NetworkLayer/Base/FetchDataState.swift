@@ -1,3 +1,5 @@
 enum FetchDataState {
-    case Loading, Loaded, Error
+    case loading
+    case idle
+    case error
 }

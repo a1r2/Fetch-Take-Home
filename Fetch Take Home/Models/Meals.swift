@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Meals
-struct Meals: Decodable {
+struct Meals: Decodable, Equatable {
     let meals: [Meal]
 }
 
