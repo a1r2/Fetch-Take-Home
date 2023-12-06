@@ -60,3 +60,4 @@ struct DessertListView: View {
 #Preview {
     DessertListView(viewModel: MealsViewModel())
 }
+
