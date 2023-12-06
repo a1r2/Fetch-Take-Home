@@ -11,18 +11,11 @@ class MealsViewModel: ObservableObject {
     @Published private(set) var meals: [Meal] = []
     @Published private(set) var state: FetchDataState = .idle
     @Published private(set) var errorMessage: String?
-    private(set) var category: String
-    private(set) var service: MealServiceProtocol
-    private(set) var sort: ([Meal]) -> [Meal]
+    private var category: String = "Dessert"
+    private var service: MealServiceProtocol
     
-    init(category: String = "Dessert", service: MealServiceProtocol = Service(), sort: @escaping ([Meal]) -> [Meal] = { meals in
-        return meals.sorted {
-            $0.strMeal.lowercased() < $1.strMeal.lowercased()
-        }
-    }) {
-        self.category = category
+    init(service: MealServiceProtocol = Service()) {
         self.service = service
-        self.sort = sort
     }
 
     @MainActor
@@ -32,7 +25,9 @@ class MealsViewModel: ObservableObject {
         state = .loading
         do {
             let mealsData = try await service.categories(category: categoryToFetch)
-            meals = sort(mealsData.meals)
+            meals = mealsData.meals.sorted {
+                $0.strMeal.lowercased() < $1.strMeal.lowercased()
+            }
             state = .idle
         } catch {
             errorMessage = error.localizedDescription

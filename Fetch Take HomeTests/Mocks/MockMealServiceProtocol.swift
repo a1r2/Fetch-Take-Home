@@ -9,19 +9,22 @@ import Foundation
 @testable import Fetch_Take_Home
 
 class MockMealServiceProtocol: MealServiceProtocol {
-    let categoryResult: Meals?
-    let lookupResult: Instructions?
-    let error: Error?
+    let outputCategoriesResult: Meals?
+    let outputLookupResult: Instructions?
+    let outputError: Error?
+    var inputCategoriesCategory: String?
+    var inputLookupId: String?
     
-    init(categoryResult: Meals? = nil, lookupResult: Instructions? = nil, error: Error? = nil) {
-        self.categoryResult = categoryResult
-        self.lookupResult = lookupResult
-        self.error = error
+    init(outputCategoriesResult: Meals? = nil, outputLookupResult: Instructions? = nil, outputError: Error? = nil) {
+        self.outputCategoriesResult = outputCategoriesResult
+        self.outputLookupResult = outputLookupResult
+        self.outputError = outputError
     }
     
     func categories(category: String) async throws -> Meals {
-        if let error {
-            throw error
+        self.inputCategoriesCategory = category
+        if let outputError {
+            throw outputError
         }
         // Return a valid Meals object (assuming Meals is a collection of Meal)
         return Meals(
@@ -37,8 +40,9 @@ class MockMealServiceProtocol: MealServiceProtocol {
     
     
     func lookup(id: String) async throws -> Instructions {
-        if let error {
-            throw error
+        self.inputLookupId = id
+        if let outputError {
+            throw outputError
         }
         return Instructions(
             meals: [
