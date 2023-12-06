@@ -1,5 +1,5 @@
 //
-//  MealsResponse.swift
+//  Instructions.swift
 //  Fetch Take Home
 //
 //  Created by Adriano Ramos on 11/10/23.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct MealsResponse: Decodable, Equatable {
-    let meals: [FollowThisRecipe]
+struct Instructions: Decodable, Equatable {
+    let meals: [Recipe]
 }
 
-struct FollowThisRecipe: Decodable, Hashable {
+struct Recipe: Decodable, Hashable {
     let strArea: String?
     let strTags: String?
     let strMealThumb: String?
@@ -28,7 +28,7 @@ struct FollowThisRecipe: Decodable, Hashable {
     let ingredients: [String: String]
 }
 
-extension FollowThisRecipe {
+extension Recipe {
     private struct DynamicCodingKeys: CodingKey {
         var stringValue: String
         var intValue: Int?

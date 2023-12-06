@@ -10,9 +10,9 @@ import XCTest
 
 final class MealDetailViewModelTests: XCTestCase {
     
-    let mealsResponse = MealsResponse(
+    let mealsResponse = Instructions(
         meals: [
-            FollowThisRecipe(
+            Recipe(
                 strArea: "strArea",
                 strTags: "strTags",
                 strMealThumb: "strMealThumb",
@@ -34,9 +34,9 @@ final class MealDetailViewModelTests: XCTestCase {
     func test_Initial_State() {
         // Arrange
         let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
+        let viewModel = MealDetailViewModel(meal: meal)
         
         // Act
-        let viewModel = MealDetailViewModel(meal: meal)
         
         // Assert
         XCTAssertEqual(viewModel.meal, meal)
@@ -73,5 +73,18 @@ final class MealDetailViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.recipe)
         XCTAssertEqual(viewModel.state, .error)
         XCTAssertEqual(viewModel.errorMessage, "some error")
+    }
+    
+    func test_Initial_meal_idMeal() async {
+        // Arrange
+        let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
+        let mock = MockMealServiceProtocol(lookupResult: mealsResponse)
+        let viewModel = MealDetailViewModel(meal: meal, service: mock)
+        
+        // Act
+        await viewModel.fetch()
+        
+        // Assert
+        XCTAssertEqual(viewModel.meal.idMeal, "idMeal")
     }
 }

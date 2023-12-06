@@ -10,7 +10,7 @@ import SwiftUI
 class MealDetailViewModel: ObservableObject {
     @Published private(set) var meal: Meal
     @Published private(set) var state: FetchDataState = .idle
-    @Published private(set) var recipe: MealsResponse?
+    @Published private(set) var recipe: Instructions?
     @Published private(set) var errorMessage: String?
     private var service: MealServiceProtocol
     
@@ -20,11 +20,12 @@ class MealDetailViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetch() async {
+    func fetch(idOverride: String? = nil) async {
+        let idToFetch = idOverride ?? meal.idMeal
         errorMessage = nil
         state = .loading
         do {
-            let recipeData = try await service.lookup(id: meal.idMeal)
+            let recipeData = try await service.lookup(id: idToFetch)
             recipe = recipeData
             state = .idle
         } catch {

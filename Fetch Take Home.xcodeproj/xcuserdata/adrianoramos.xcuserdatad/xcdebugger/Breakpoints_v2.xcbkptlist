@@ -23,17 +23,161 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8C7DF433-4824-4685-BADB-F6281243272B"
-            shouldBeEnabled = "No"
+            uuid = "36FEA053-AF1F-47CD-B5AE-ED8D18C510D8"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fetch Take HomeTests/Mocks/MockMealServiceProtocol.swift"
+            filePath = "Fetch Take Home/NetworkLayer/Base/Api.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "categories(category:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "request(print:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "36FEA053-AF1F-47CD-B5AE-ED8D18C510D8 - 1327a7f613bbf44a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Fetch_Take_Home.Api.request(print: Swift.Bool) async throws -&gt; (Foundation.Data, Swift.Int)"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "1708">
+               </Location>
+               <Location
+                  uuid = "36FEA053-AF1F-47CD-B5AE-ED8D18C510D8 - a6ef16157949aa73"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Fetch_Take_Home.Api.request(print: Swift.Bool) async throws -&gt; (Foundation.Data, Swift.Int)"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "316">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "835217A8-40EC-4C5C-B876-66B01AAC4EF7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fetch Take Home/NetworkLayer/Base/Api.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "request(print:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "835217A8-40EC-4C5C-B876-66B01AAC4EF7 - 1327a7f613bbf427"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Fetch_Take_Home.Api.request(print: Swift.Bool) async throws -&gt; (Foundation.Data, Swift.Int)"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "1872">
+               </Location>
+               <Location
+                  uuid = "835217A8-40EC-4C5C-B876-66B01AAC4EF7 - a6ef16157949aa1e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Fetch_Take_Home.Api.request(print: Swift.Bool) async throws -&gt; (Foundation.Data, Swift.Int)"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "480">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9ED95E56-CDFF-419A-BA0F-0AA742876997"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fetch Take Home/NetworkLayer/Base/Api.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "request(print:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A49F85DC-FC06-44BD-A3D4-191234DE9748"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fetch Take Home/NetworkLayer/Base/Api.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "decodeResponse(_:data:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A49F85DC-FC06-44BD-A3D4-191234DE9748 - d6e64bff0f34137d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fetch_Take_Home.Api.decodeResponse&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Decodable&gt;(_: &#x3c4;_1_0.Type, data: Foundation.Data) throws -&gt; &#x3c4;_1_0"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "A49F85DC-FC06-44BD-A3D4-191234DE9748 - d6e64bff0f34137d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fetch_Take_Home.Api.decodeResponse&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Decodable&gt;(_: &#x3c4;_1_0.Type, data: Foundation.Data) throws -&gt; &#x3c4;_1_0"
+                  moduleName = "Fetch Take Home"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adrianoramos/Desktop/Fetch%20Take%20Home/Fetch%20Take%20Home/NetworkLayer/Base/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "360">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -16,9 +16,9 @@ final class MealsViewModelTests: XCTestCase {
     
     func test_Initial_State() {
         // Arrange
+        let viewModel = MealsViewModel()
         
         // Act
-        let viewModel = MealsViewModel()
         
         // Assert
         XCTAssertTrue(viewModel.meals.isEmpty)
@@ -53,4 +53,15 @@ final class MealsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.state, .error)
         XCTAssertEqual(viewModel.errorMessage, "some error")
     }
+    
+    func test_InitialCategoryIsDessert() {
+        // Arrange
+        let viewModel = MealsViewModel()
+        
+        // Act
+        
+        // Assert
+        XCTAssertEqual(viewModel.category, "Dessert")
+    }
+
 }
