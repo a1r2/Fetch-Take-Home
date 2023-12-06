@@ -25,13 +25,17 @@ class MealsViewModel: ObservableObject {
         state = .loading
         do {
             let mealsData = try await service.categories(category: categoryToFetch)
-            meals = mealsData.meals.sorted {
-                $0.strMeal.lowercased() < $1.strMeal.lowercased()
-            }
+            meals = sortMealsByName(meals: mealsData.meals)
             state = .idle
         } catch {
             errorMessage = error.localizedDescription
             state = .error
+        }
+    }
+    
+    func sortMealsByName(meals: [Meal]) -> [Meal] {
+        return meals.sorted {
+            $0.strMeal.lowercased() < $1.strMeal.lowercased()
         }
     }
 }
