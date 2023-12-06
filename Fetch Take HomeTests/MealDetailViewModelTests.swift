@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import Combine
 @testable import Fetch_Take_Home
 
 final class MealDetailViewModelTests: XCTestCase {
@@ -86,5 +87,41 @@ final class MealDetailViewModelTests: XCTestCase {
         
         // Assert
         XCTAssertEqual(mock.inputLookupId, "idMeal")
+    }
+    
+    func test_State_Loading_WhenFetching() async {
+        // Arrange
+        let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
+        let mock = MockMealServiceProtocol(outputLookupResult: mealsResponse)
+        let viewModel = MealDetailViewModel(meal: meal, service: mock)
+        
+        var cancellables = Set<AnyCancellable>()
+        var changedToLoading = false
+        var changedErrorToNil = false
+        
+        viewModel.$state
+            .dropFirst()
+            .sink { state in
+                if state == .loading {
+                    changedToLoading = true
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$errorMessage
+            .dropFirst()
+            .sink { errorMessage in
+                if errorMessage == nil {
+                    changedErrorToNil = true
+                }
+            }
+            .store(in: &cancellables)
+        
+        // Act
+        await viewModel.fetch()
+        
+        // Assert
+        XCTAssertTrue(changedToLoading)
+        XCTAssertTrue(changedErrorToNil)
     }
 }
