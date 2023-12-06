@@ -48,7 +48,7 @@ final class MealDetailViewModelTests: XCTestCase {
     func test_fetch_when_Succeeds() async {
         // Arrange
         let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
-        let mock = MockMealServiceProtocol(lookupResult: mealsResponse)
+        let mock = MockMealServiceProtocol(outputLookupResult: mealsResponse)
         let viewModel = MealDetailViewModel(meal: meal, service: mock)
         
         // Act
@@ -63,7 +63,7 @@ final class MealDetailViewModelTests: XCTestCase {
     func test_fetch_when_Fails() async {
         // Arrange
         let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
-        let mock = MockMealServiceProtocol(error: NSError(domain: "domain", code: 1, userInfo: [NSLocalizedDescriptionKey : "some error"]))
+        let mock = MockMealServiceProtocol(outputError: NSError(domain: "domain", code: 1, userInfo: [NSLocalizedDescriptionKey : "some error"]))
         let viewModel = MealDetailViewModel(meal: meal, service: mock)
         
         // Act
@@ -78,13 +78,13 @@ final class MealDetailViewModelTests: XCTestCase {
     func test_Initial_meal_idMeal() async {
         // Arrange
         let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
-        let mock = MockMealServiceProtocol(lookupResult: mealsResponse)
+        let mock = MockMealServiceProtocol(outputLookupResult: mealsResponse)
         let viewModel = MealDetailViewModel(meal: meal, service: mock)
         
         // Act
         await viewModel.fetch()
         
         // Assert
-        XCTAssertEqual(viewModel.meal.idMeal, "idMeal")
+        XCTAssertEqual(mock.inputLookupId, "idMeal")
     }
 }

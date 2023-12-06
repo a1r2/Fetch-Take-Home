@@ -28,7 +28,7 @@ final class MealsViewModelTests: XCTestCase {
     
     func test_fetch_when_Succeeds() async {
         // Arrange
-        let mock = MockMealServiceProtocol(categoryResult: meals)
+        let mock = MockMealServiceProtocol(outputCategoriesResult: meals)
         let viewModel = MealsViewModel(service: mock)
         
         // Act
@@ -42,7 +42,7 @@ final class MealsViewModelTests: XCTestCase {
     
     func test_fetch_when_Fails() async {
         // Arrange
-        let mock = MockMealServiceProtocol(error: NSError(domain: "domain", code: 1, userInfo: [NSLocalizedDescriptionKey : "some error"]))
+        let mock = MockMealServiceProtocol(outputError: NSError(domain: "domain", code: 1, userInfo: [NSLocalizedDescriptionKey : "some error"]))
         let viewModel = MealsViewModel(service: mock)
         
         // Act
@@ -54,47 +54,37 @@ final class MealsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.errorMessage, "some error")
     }
     
-    func test_InitialCategoryIsDessert() {
+    func test_InitialCategoryIsDessert() async {
         // Arrange
-        let viewModel = MealsViewModel()
+        let mock = MockMealServiceProtocol(outputCategoriesResult: meals)
+        let viewModel = MealsViewModel(service: mock)
         
         // Act
+        await viewModel.fetch()
         
         // Assert
-        XCTAssertEqual(viewModel.category, "Dessert")
+        XCTAssertEqual(mock.inputCategoriesCategory, "Dessert")
     }
     
-    
-    // Helper function to create a sample meal
-        func createMeal(name: String) -> Meal {
-            return Meal(strMeal: name, strMealThumb: "", idMeal: "")
-        }
+    func testSortingLogic() async {
+        // Arrange
+        let mock = MockMealServiceProtocol(outputCategoriesResult: meals)
+        let viewModel = MealsViewModel(service: mock)
         
-        func testSortingLogic() {
-            // Arrange
-            let viewModel = MealsViewModel()
-            
-            let sampleMeals: [Meal] = [
-                createMeal(name: "Pizza"),
-                createMeal(name: "Burger"),
-                createMeal(name: "Spaghetti"),
-                createMeal(name: "Apple"),
-                createMeal(name: "Banana")
-            ]
-            
-//            // Act
-//            viewModel.meals = sampleMeals
-//            let sortedMeals = viewModel.sort(viewModel.meals)
-//            
-//            // Assert
-//            // Define the expected order based on the sorting logic
-//            let expectedOrder: [String] = ["Apple", "Banana", "Burger", "Pizza", "Spaghetti"]
-//            
-//            // Extract meal names from sortedMeals
-//            let sortedMealNames = sortedMeals.map { $0.strMeal }
-//            
-//            // Verify that the sortedMealNames match the expectedOrder
-//            XCTAssertEqual(sortedMealNames, expectedOrder)
-        }
-    
+        // Act
+        await viewModel.fetch()
+        
+        // Assert
+        // Define the expected order based on the sorting logic
+        let expectedOrder: [Meal] = [
+            Meal(strMeal: "Apple", strMealThumb: "", idMeal: ""),
+            Meal(strMeal: "Burger", strMealThumb: "", idMeal: ""),
+            Meal(strMeal: "Pizza", strMealThumb: "", idMeal: ""),
+            Meal(strMeal: "Spaghetti", strMealThumb: "", idMeal: "")
+        ]
+                
+        // Verify that the sorted arrays match
+        XCTAssertEqual(expectedOrder, viewModel.meals)
+    }
+
 }

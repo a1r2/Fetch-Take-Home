@@ -26,18 +26,15 @@ class MockMealServiceProtocol: MealServiceProtocol {
         if let outputError {
             throw outputError
         }
-        // Return a valid Meals object (assuming Meals is a collection of Meal)
         return Meals(
             meals: [
-                Meal(
-                    strMeal: "strMeal",
-                    strMealThumb: "strMealThumb",
-                    idMeal: "idMeal"
-                )
+                Meal(strMeal: "Pizza", strMealThumb: "", idMeal: ""),
+                Meal(strMeal: "Burger", strMealThumb: "", idMeal: ""),
+                Meal(strMeal: "Spaghetti", strMealThumb: "", idMeal: ""),
+                Meal(strMeal: "Apple", strMealThumb: "", idMeal: "")
             ]
         )
     }
-    
     
     func lookup(id: String) async throws -> Instructions {
         self.inputLookupId = id
