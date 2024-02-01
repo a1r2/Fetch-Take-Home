@@ -39,6 +39,7 @@ final class MealsViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.meals.count > 0)
         XCTAssertEqual(viewModel.state, .idle)
         XCTAssertNil(viewModel.errorMessage)
+        XCTAssertTrue(mock.inputCategoriesCategory == "Dessert")
     }
     
     func test_fetch_when_Fails() async {
