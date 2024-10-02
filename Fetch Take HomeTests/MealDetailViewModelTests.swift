@@ -1,10 +1,3 @@
-//
-//  MealDetailViewModelTests.swift
-//  Fetch Take HomeTests
-//
-//  Created by Adriano Ramos on 12/2/23.
-//
-
 import XCTest
 import Combine
 @testable import Fetch_Take_Home
@@ -37,9 +30,7 @@ final class MealDetailViewModelTests: XCTestCase {
         let meal = Meal(strMeal: "strMeal", strMealThumb: "strMealThumb", idMeal: "idMeal")
         let viewModel = MealDetailViewModel(meal: meal)
         
-        // Act
-        
-        // Assert
+        // Assert initial state
         XCTAssertEqual(viewModel.meal, meal)
         XCTAssertEqual(viewModel.state, .idle)
         XCTAssertNil(viewModel.recipe)
@@ -86,7 +77,7 @@ final class MealDetailViewModelTests: XCTestCase {
         await viewModel.fetch()
         
         // Assert
-        XCTAssertEqual(mock.inputLookupId, "idMeal")
+        XCTAssertEqual(mock.inputLookupId, "idMeal", "Service should be called with the correct meal ID.")
     }
     
     func test_State_Loading_WhenFetching() async {
@@ -95,12 +86,13 @@ final class MealDetailViewModelTests: XCTestCase {
         let mock = MockMealServiceProtocol(outputLookupResult: mealsResponse)
         let viewModel = MealDetailViewModel(meal: meal, service: mock)
         
+        // Setup for observing state changes
         var cancellables = Set<AnyCancellable>()
         var changedToLoading = false
         var changedErrorToNil = false
         
         viewModel.$state
-            .dropFirst()
+            .dropFirst() // Ignore initial value
             .sink { state in
                 if state == .loading {
                     changedToLoading = true
@@ -109,7 +101,7 @@ final class MealDetailViewModelTests: XCTestCase {
             .store(in: &cancellables)
         
         viewModel.$errorMessage
-            .dropFirst()
+            .dropFirst() // Ignore initial value
             .sink { errorMessage in
                 if errorMessage == nil {
                     changedErrorToNil = true
@@ -121,7 +113,7 @@ final class MealDetailViewModelTests: XCTestCase {
         await viewModel.fetch()
         
         // Assert
-        XCTAssertTrue(changedToLoading)
-        XCTAssertTrue(changedErrorToNil)
+        XCTAssertTrue(changedToLoading, "State should change to loading when fetching.")
+        XCTAssertTrue(changedErrorToNil, "Error message should be nil when fetching starts.")
     }
 }
